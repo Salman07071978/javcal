@@ -1,36 +1,30 @@
-# Simple Calculator Function
-def calculator():
-    print("Welcome to the Simple Calculator!")
-    print("Select an operation:")
-    print("1. Addition (+)")
-    print("2. Subtraction (-)")
-    print("3. Multiplication (*)")
-    print("4. Division (/)")
+import streamlit as st
 
-    # Take input from the user
-    choice = input("Enter choice (1/2/3/4): ")
+# Set up the Streamlit interface
+st.title("Simple Calculator")
 
-    # Ensure a valid operation is chosen
-    if choice in ['1', '2', '3', '4']:
-        # Take numbers from the user
-        num1 = float(input("Enter first number: "))
-        num2 = float(input("Enter second number: "))
+# Operation options
+st.write("Select an operation:")
+operation = st.selectbox("Operation", ("Addition", "Subtraction", "Multiplication", "Division"))
 
-        # Perform the calculation based on the chosen operation
-        if choice == '1':
-            print(f"The result is: {num1 + num2}")
-        elif choice == '2':
-            print(f"The result is: {num1 - num2}")
-        elif choice == '3':
-            print(f"The result is: {num1 * num2}")
-        elif choice == '4':
-            # Check for division by zero
-            if num2 != 0:
-                print(f"The result is: {num1 / num2}")
-            else:
-                print("Error: Division by zero is not allowed.")
-    else:
-        print("Invalid input, please enter a valid option.")
+# Input fields for numbers
+num1 = st.number_input("Enter the first number", value=0.0, format="%.2f")
+num2 = st.number_input("Enter the second number", value=0.0, format="%.2f")
 
-# Run the calculator
-calculator()
+# Perform the calculation based on the selected operation
+if st.button("Calculate"):
+    if operation == "Addition":
+        result = num1 + num2
+        st.write(f"The result is: {result}")
+    elif operation == "Subtraction":
+        result = num1 - num2
+        st.write(f"The result is: {result}")
+    elif operation == "Multiplication":
+        result = num1 * num2
+        st.write(f"The result is: {result}")
+    elif operation == "Division":
+        if num2 != 0:
+            result = num1 / num2
+            st.write(f"The result is: {result}")
+        else:
+            st.write("Error: Division by zero is not allowed.")
